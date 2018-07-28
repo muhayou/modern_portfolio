@@ -1,0 +1,19 @@
+{
+  "name": "modern_portfolio",
+  "version": "0.0.1",
+  "description": "Responsive portfolio website",
+  "main": "index.js",
+  "scripts": {
+    "sass": "node-sass -w src/scss/ -o src/css/ --recursive"
+  },
+  "author": {
+    "name": "Joohyoung Kim",
+    "email": "silentsky@hotmail.com",
+    "url": "http://www.thinkbox.co.kr"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.2.0",
+    "node-sass": "^4.9.2"
+  }
+}
