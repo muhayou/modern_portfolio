@@ -3,8 +3,25 @@
   "version": "0.0.1",
   "description": "Responsive portfolio website",
   "main": "index.js",
+  "homepage": "https://muhayou.github.io/modern_portfolio/",
   "scripts": {
-    "sass": "node-sass -w src/scss/ -o src/css/ --recursive"
+    "//": " --- STYLES --- ",
+    "sass": "node-sass -w src/scss/ --output-style compressed > dist/css --recursive",
+
+    "//": " --- PREPARE --- ",
+    "init": "mkdirp dist/img && mkdirp dist/css && mkdirp dist/js",
+    "copy:image": "cp -r src/img/* dist/img/",
+    "copy:css": "cp -r src/css/* dist/css/",
+    "copy:js": "cp -r src/js/* dist/js/",
+    "copy:html": "cp -r src/*.html dist/",
+    "copy": "npm run copy:image && npm run copy:css && npm run copy:js && npm run copy:html",
+
+    "//": " --- BUILD --- ",
+    "clean": "rimraf dist",
+    "build": "npm run clean && npm run init && npm run copy",
+
+    "//": " --- DEPLOY --- ",
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "author": {
     "name": "Joohyoung Kim",
@@ -14,6 +31,8 @@
   "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.2.0",
+    "gh-pages": "^1.2.0",
+    "mkdirp": "^0.5.1",
     "node-sass": "^4.9.2"
   }
 }
