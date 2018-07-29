@@ -1,3 +1,13 @@
+// Project data.
+const projs = '{ "projects" : [' +
+  '{ "id": 1, "name": "Modern Profile", "image": "img/projects/modern_profile.png", "site": "https://muhayou.github.io/modern_portfolio/", "repos": { "url": "https://github.com/muhayou/modern_portfolio", "type": "github" } },' +
+  '{ "id": 2, "name": "Organic Shop", "image": "img/projects/project1.jpg", "site": "#", "repos": { "url": "#", "type": "gitlab" } },' +
+  '{ "id": 3, "name": "RAMS", "image": "img/projects/project2.jpg", "site": "#", "repos": { "url": "#", "type": "gitlab" } },' +
+  '{ "id": 4, "name": "DPS", "image": "img/projects/project3.jpg", "site": "#", "repos": { "url": "#", "type": "gitlab" } },' +
+  '{ "id": 5, "name": "재난영상 연계", "image": "img/projects/project4.jpg", "site": "#", "repos": { "url": "#", "type": "gitlab" } },' +
+  '{ "id": 6, "name": "경기재난안전본부 유지보수", "image": "img/projects/gg_fire.png", "site": "#", "repos": { "url": "#", "type": "gitlab" } }' +
+']}';
+
 // Select DOM items.
 const menuBtn = document.querySelector('.menu-btn');
 const menu = document.querySelector('.menu');
@@ -26,4 +36,87 @@ function toggleMenu() {
   }
   // Set menu state.
   showMenu = !showMenu;
+}
+
+function getReposName(reposType) {
+  switch (reposType) {
+    case "github": return "Github";
+    case "gitlab": return "Gitlab";
+    default: return "";
+  }
+}
+
+/**
+ * Add font-awesome icon.
+ * @param {*} element 
+ * @param {*} reposType 
+ */
+function addReposIcon(element, reposType) {
+  switch (reposType) {
+    case "github": element.classList.add("fab", "fa-github"); break;
+    case "gitlab": element.classList.add("fab", "fa-gitlab"); break;
+    default: break;
+  }
+}
+
+function generateProject() {
+  const id = (new URL(document.location)).searchParams.get("id");
+  const proj = JSON.parse(projs).projects[id - 1];
+  
+  let tag = document.getElementsByClassName("lg-heading");
+  tag[0].innerText = proj.name;
+}
+
+/**
+ * Generate project list.
+ */
+function generateProjects() {
+  const jsonObj = JSON.parse(projs);
+
+  const items = document.getElementsByClassName("projects");
+  if (items == null) {
+    alert('Could not find projects class.')
+    return;
+  }
+  
+  for (i in jsonObj.projects) {
+    let item = document.createElement("div");
+    item.classList.add("item");
+
+    // Project detail link.
+    let img = document.createElement("img");
+    img.setAttribute("src", jsonObj.projects[i].image);
+    img.setAttribute("alt", jsonObj.projects[i].name);
+    let lnk = document.createElement("a");
+    lnk.setAttribute("href", "work-detail.html?id=" + jsonObj.projects[i].id);
+    lnk.appendChild(img);
+    item.appendChild(lnk);
+
+    // Project operation site link.
+    lnk = document.createElement("a");
+    lnk.setAttribute("href", jsonObj.projects[i].site);
+    lnk.classList.add("btn-light");
+    let icn = document.createElement("i");
+    icn.classList.add("fas", "fa-eye");
+    lnk.appendChild(icn);
+    let txt = document.createTextNode(" " + jsonObj.projects[i].name);
+    lnk.appendChild(txt);
+    item.appendChild(lnk);
+
+    // Github source code link.
+    lnk = document.createElement("a");
+    lnk.setAttribute("href", jsonObj.projects[i].repos.url);
+    lnk.classList.add("btn-dark");
+    icn = document.createElement("i");
+    addReposIcon(icn, jsonObj.projects[i].repos.type)
+    lnk.appendChild(icn);
+    txt = document.createTextNode(" " + 
+      getReposName(jsonObj.projects[i].repos.type));
+    lnk.appendChild(txt);
+    item.appendChild(lnk);
+
+    items[0].appendChild(item); 
+  }
+
+
 }
