@@ -67,7 +67,7 @@ last update: 2018. 07. 26
     .menu-branding .portrait {
       width: 250px;
       height: 250px;
-      background: url(../img/portrait.jpg);
+      background: url(../img/portrait.png);
       border: 3px solid #eece1a;
       border-radius: 50%; }
   .menu .nav-item {
@@ -282,7 +282,7 @@ main {
     height: 25vh;
     transform: translate3d(100%, 0, 0); }
     .menu-branding .portrait {
-      background: url(../img/portrait_small.jpg);
+      background: url(../img/portrait_small.png);
       width: 150px;
       height: 150px; }
   .about-info {
